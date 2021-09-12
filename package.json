@@ -1,0 +1,45 @@
+{
+  "name": "@nomikos/ia-post-api",
+  "version": "1.0.5",
+  "description": "Procesos CRUD de posts. Preproceso para wall.",
+  "author": "Igor Parra B.",
+  "license": "UNLICENSED",
+  "prettier": "@nomikos/prettierrc",
+  "scripts": {
+    "dev": "NODE_ENV=local babel-node index-dev.js | pino-tee >> ~/dev/logs/ia/post-api.js.log",
+    "test": "NODE_ENV=test jest --watchAll | pino-tee >> ~/dev/logs/ia/post-api.js.log",
+    "lint": "eslint --fix src && prettier --write \"src/**/*.js\""
+  },
+  "dependencies": {
+    "@koa/cors": "^3.1.0",
+    "@nomikos/module-google": "^1.0.35",
+    "@nomikos/module-koa-common": "^1.36.0",
+    "@nomikos/module-ia-support": "^1.0.3",
+    "@nomikos/module-comm": "^1.0.10",
+    "awilix": "^4.2.2",
+    "awilix-koa": "^4.0.0",
+    "axios": "^0.19.0",
+    "joi": "^14.3.1",
+    "koa": "^2.8.1",
+    "koa-bodyparser": "^4.2.1",
+    "koa-respond": "^2.1.0",
+    "koa-router": "^7.4.0",
+    "moment": "^2.25.3",
+    "pg": "^7.12.1",
+    "pino-stackdriver": "^2.1.1",
+    "ulid": "^2.3.0",
+    "yenv": "^2.1.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.10.1",
+    "@babel/core": "^7.10.2",
+    "@babel/node": "^7.10.1",
+    "@babel/plugin-proposal-decorators": "^7.10.1",
+    "@babel/plugin-proposal-optional-chaining": "^7.11.0",
+    "@babel/preset-env": "^7.10.2",
+    "@babel/preset-flow": "^7.10.1",
+    "@babel/register": "^7.10.1",
+    "babel-plugin-module-resolver": "^4.0.0",
+    "pino-tee": "^0.3.0"
+  }
+}

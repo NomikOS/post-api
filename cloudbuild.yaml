@@ -1,0 +1,33 @@
+steps:
+  - name: gcr.io/kaniko-project/executor:v0.17.1
+    id: build
+    env:
+      - NODE_ENV=$_ENV
+      - DB_HOST=$_DB_HOST
+      - PROJECT_ID=$PROJECT_ID
+    args:
+      - --destination=gcr.io/$PROJECT_ID/$_ENV-post-api:latest
+      - --destination=gcr.io/$PROJECT_ID/$_ENV-post-api:$BUILD_ID
+      - --cache=true
+      - --cache-ttl=168h
+      - --target=deployment-image
+      - --build-arg=NODE_ENV
+      - --build-arg=PROJECT_ID
+      - --build-arg=DB_HOST
+      - --build-arg=GOOGLE_APPLICATION_CREDENTIALS="/app/service-account.json"
+
+  - name: gcr.io/cloud-builders/gcloud
+    id: run-deploy
+    args:
+      - beta
+      - run
+      - deploy
+      - $_ENV-post-api
+      - --region=us-east1
+      - --image=gcr.io/$PROJECT_ID/$_ENV-post-api:$BUILD_ID
+      - --platform=managed
+      - --update-secrets=/secrets/core-database-secret=$_ENV-core-database-secret:latest
+
+timeout: 300s
+tags:
+  - post-api
